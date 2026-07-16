@@ -1,0 +1,26 @@
+name: Formula CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Audit formula
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Audit formula
+        run: |
+          TAP_PATH="$(brew --repository)/Library/Taps/jordanliu/homebrew-portx"
+          mkdir -p "$(dirname "$TAP_PATH")"
+          ln -s "$GITHUB_WORKSPACE" "$TAP_PATH"
+          brew audit --formula --tap jordanliu/portx
