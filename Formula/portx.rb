@@ -63,7 +63,7 @@ class Portx < Formula
   end
 
   test do
-    assert_match "portx", shell_output("#{bin}/portx version")
+    assert_match version.to_s, shell_output("#{bin}/portx version")
     assert_match "http", shell_output("#{bin}/portx http --help")
   end
 end
