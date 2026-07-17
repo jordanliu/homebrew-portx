@@ -90,6 +90,6 @@ jobs:
       - name: Build, install, and test formula
         if: steps.metadata.outputs.placeholder != 'true'
         run: |
-          brew install --build-from-source --formula ./Formula/portx.rb
-          brew test portx
+          brew install --build-from-source --formula jordanliu/portx/portx
+          brew test jordanliu/portx/portx
           portx version
