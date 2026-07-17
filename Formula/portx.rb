@@ -14,7 +14,9 @@
 class Portx < Formula
   desc "Temporary public development URLs via Cloudflare Tunnel"
   homepage "https://github.com/jordanliu/portx"
-  # Update url/sha256 when cutting a release (CI opens the tap PR).
+  # PRE-RELEASE PLACEHOLDER: this formula is not installable until the first
+  # real release. CI must replace both fields from the tagged archive; never
+  # replace the SHA with an invented value.
   url "https://github.com/jordanliu/portx/releases/download/v0.1.0/portx-0.1.0.tar.gz"
   sha256 "0000000000000000000000000000000000000000000000000000000000000000"
   license "MIT"
