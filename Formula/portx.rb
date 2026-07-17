@@ -18,7 +18,7 @@ class Portx < Formula
   # real release. CI must replace both fields from the tagged archive; never
   # replace the SHA with an invented value.
   url "https://github.com/jordanliu/portx/releases/download/v0.1.0/portx-0.1.0.tar.gz"
-  sha256 "0000000000000000000000000000000000000000000000000000000000000000"
+  sha256 "275c4f9786a9b5c0b036506614cbcc3286e983345e86af23d9b388fb3e6d25da"
   license "MIT"
   head "https://github.com/jordanliu/portx.git", branch: "main"
 
