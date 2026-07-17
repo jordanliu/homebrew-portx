@@ -41,6 +41,9 @@ class Portx < Formula
     ]
 
     ENV["CGO_ENABLED"] = "0"
+    # Homebrew's Go formula can lag the minimum version declared by go.mod.
+    # Let Go resolve that declared toolchain instead of failing with GOTOOLCHAIN=local.
+    ENV["GOTOOLCHAIN"] = "auto"
     system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/portx"
   end
 
