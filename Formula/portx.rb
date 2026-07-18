@@ -12,7 +12,7 @@
 #
 # cloudflared is a required runtime dependency (not bundled).
 class Portx < Formula
-  desc "Temporary public development URLs via Cloudflare Tunnel"
+  desc "Public URLs for local apps, powered by Cloudflare Tunnel"
   homepage "https://github.com/jordanliu/portx"
   version "0.1.0"
   license "MIT"
