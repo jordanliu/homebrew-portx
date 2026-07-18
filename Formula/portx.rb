@@ -14,37 +14,33 @@
 class Portx < Formula
   desc "Temporary public development URLs via Cloudflare Tunnel"
   homepage "https://github.com/jordanliu/portx"
-  # PRE-RELEASE PLACEHOLDER: this formula is not installable until the first
-  # real release. CI must replace both fields from the tagged archive; never
-  # replace the SHA with an invented value.
-  url "https://github.com/jordanliu/portx/releases/download/v0.1.0/portx-0.1.0.tar.gz"
-  sha256 "29f2377a998a94872beaf24a620668e03ca21c3ccac38f3416f5de939bfe833a"
+  version "0.1.0"
   license "MIT"
-  head "https://github.com/jordanliu/portx.git", branch: "main"
 
-  depends_on "go" => :build
+  on_macos do
+    if Hardware::CPU.arm?
+      url "https://github.com/jordanliu/portx/releases/download/v0.1.0/portx_0.1.0_darwin_arm64"
+      sha256 "f2990e499bd37a623c82d3edf05d8f74020e205f841944b643b0cd96728e891e"
+    else
+      url "https://github.com/jordanliu/portx/releases/download/v0.1.0/portx_0.1.0_darwin_amd64"
+      sha256 "616f0c3eef261a817675f7f8088839bd4a47c76b433e9ea55aba0b886f14aa4e"
+    end
+  end
+
+  on_linux do
+    if Hardware::CPU.arm?
+      url "https://github.com/jordanliu/portx/releases/download/v0.1.0/portx_0.1.0_linux_arm64"
+      sha256 "9f3b93bdd5c75cdeda97feb168728cb7b50cc9dfffddaae649d3e68da87f5348"
+    else
+      url "https://github.com/jordanliu/portx/releases/download/v0.1.0/portx_0.1.0_linux_amd64"
+      sha256 "6f5bc638fb8e85be302555e3a265aa801f5523f51d2d0a3dffaf9d9094b1685e"
+    end
+  end
+
   depends_on "cloudflared"
 
   def install
-    version_str = if build.head?
-      "0.0.0-dev"
-    else
-      version.to_s
-    end
-    commit = Utils.git_short_head(length: 7) if build.head? && Utils.git_available?
-
-    ldflags = %W[
-      -s -w
-      -X portx/internal/buildinfo.Version=#{version_str}
-      -X portx/internal/buildinfo.Commit=#{commit || "homebrew"}
-      -X portx/internal/buildinfo.Date=#{time.iso8601}
-    ]
-
-    ENV["CGO_ENABLED"] = "0"
-    # Homebrew's Go formula can lag the minimum version declared by go.mod.
-    # Let Go resolve that declared toolchain instead of failing with GOTOOLCHAIN=local.
-    ENV["GOTOOLCHAIN"] = "auto"
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/portx"
+    bin.install Dir["portx_*"].first => "portx"
   end
 
   def caveats
